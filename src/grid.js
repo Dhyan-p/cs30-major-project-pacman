@@ -61,5 +61,16 @@ class MazeGrid {
     };
   }
 
-  
+  // Draw maze walls
+  drawWalls() {
+    for (let row = 0; row < this.gridConfig.cellSize; row++) {
+      for (let col = 0; col < this.gridConfig.cellSize; col++) {
+        if (this.matrix[row][col] === IDENTIFIERS.WALL) {
+          let x = col * this.gridConfig.cellSize;
+          let y = row * this.gridConfig.cellSize;
+          square(x, y, this.gridConfig.cellSize);
+        }
+      }
+    }
+  }
 }
