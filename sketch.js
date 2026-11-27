@@ -15,7 +15,6 @@ async function setup() {
 }
 
 function draw() {
-  // background(220);
-
+  background("black");
   maze.drawWalls();
 }
