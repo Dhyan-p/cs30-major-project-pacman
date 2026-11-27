@@ -80,8 +80,8 @@ class MazeGrid {
 
   // Calculate cell size and canvas size
   calculateDimensions() {
-    let maxCellWidth = Math.floor((windowWidth * 0.90) / this.gridConfig.totalCols);
-    let maxCellHeight = Math.floor((windowHeight * 0.90) / this.gridConfig.totalRows);
+    let maxCellWidth = Math.floor(windowWidth * 0.90 / this.gridConfig.totalCols);
+    let maxCellHeight = Math.floor(windowHeight * 0.90 / this.gridConfig.totalRows);
     this.gridConfig.cellSize = Math.min(maxCellWidth, maxCellHeight);
 
     return {

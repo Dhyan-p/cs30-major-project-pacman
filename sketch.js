@@ -6,6 +6,7 @@
 // - describe what you did to take this project "above and beyond"
 
 let maze;
+let pacman;
 
 // Character Assets Objects
 // For all the assets keep this in mind: when you see numsFrame it is the base number of images in a spike sheet and when you see something added to numsFrame that refers to the specific image for example; numsFrameDeathNError in pacmanAssets refer to death and error image frames not the other images and the numsFrame in pacmanAssets refer to all other image that has been left.
@@ -156,6 +157,7 @@ async function preLoadImages() {
 async function setup() {
   await preLoadImages();
   maze = new MazeGrid();
+  pacman = new PacMan();
   let dimensions = maze.calculateDimensions();
   let canvas = createCanvas(dimensions.width, dimensions.height);
   canvas.parent('canvas-container');
@@ -165,6 +167,9 @@ function draw() {
   background("black");
   maze.drawWalls();
   maze.drawPills();
+
+  // Draw character
+  pacman.drawPacman(maze);
 }
 
 function windowResized() {
