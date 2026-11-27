@@ -10,6 +10,8 @@ const IDENTIFIERS = {
   PINKY_SPAWN: 5,
   INKY_SPAWN: 6,
   CLYDE_SPAWN: 7,
+  POWERPILL: 8,
+  CHERRY: 9,
 };
 
 class MazeGrid {
@@ -26,7 +28,7 @@ class MazeGrid {
       [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
       [2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2],
       [2, 1, 2, 2, 1, 2, 2, 2, 1, 2, 1, 2, 2, 2, 1, 2, 2, 1, 2],
-      [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+      [2, 8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 8, 2],
       [2, 1, 2, 2, 1, 2, 1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 1, 2],
       [2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2],
       [2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2],
@@ -38,13 +40,42 @@ class MazeGrid {
       [2, 2, 2, 2, 1, 2, 1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 2, 2],
       [2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2],
       [2, 1, 2, 2, 1, 2, 2, 2, 1, 2, 1, 2, 2, 2, 1, 2, 2, 1, 2],
-      [2, 1, 1, 2, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 2, 1, 1, 2],
+      [2, 8, 1, 2, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 2, 1, 8, 2],
       [2, 2, 1, 2, 1, 2, 1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 1, 2, 2],
       [2, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 2],
       [2, 1, 2, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 1, 2],
       [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
       [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
     ];
+
+    // Setup Pills
+    this.setupPills();
+  }
+
+  // Scan the matrix and make pill array
+  setupPills() {
+    this.pills = [];
+
+    for (let row = 0; row < this.gridConfig.totalRows; row++) {
+      for (let col = 0; col < this.gridConfig.totalCols; col++) {
+        if (this.matrix[row][col] === IDENTIFIERS.PILL) {
+          this.pills.push(new Pill(row, col, "pacpill"));
+        }
+        else if (this.matrix[row][col] === IDENTIFIERS.POWERPILL) {
+          this.pills.push(new Pill(row, col, "powerpill"));
+        }
+        else if (this.matrix[row][col] === IDENTIFIERS.CHERRY) {
+          this.pills.push(new Pill(row, col, "cherry"));
+        }
+      }
+    }
+  }
+
+  // Draw pills
+  drawPills() {
+    for (let pill of this.pills) {
+      pill.draw(this.gridConfig.cellSize);
+    }
   }
 
   // Calculate cell size and canvas size
